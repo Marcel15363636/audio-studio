@@ -211,7 +211,7 @@ async function convertVideo() {
   } catch (error) {
     console.error('Audio Studio Fehler:', error);
 
-    let message = error?.message || 'Ein unbekannter Fehler ist aufgetreten.';
+  let message = error?.message || String(error) || JSON.stringify(error);
 
     if (message.includes('memory') || message.includes('Memory')) {
       message = 'Dein Gerät hat nicht genug freien Speicher. Bitte versuche ein kleineres Video.';
