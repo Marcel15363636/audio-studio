@@ -120,8 +120,8 @@ async function getFFmpeg() {
   setProgress(5, 'Konverter wird geladen …',
     'Das kann beim ersten Start einen Moment dauern.');
 
-  const coreURL = `${base}ffmpeg/ffmpeg-core.js`;
-  const wasmURL = `${base}ffmpeg/ffmpeg-core.wasm`;
+  const coreURL = await toBlobURL(`${base}ffmpeg/ffmpeg-core.js`, 'text/javascript');
+const wasmURL = await toBlobURL(`${base}ffmpeg/ffmpeg-core.wasm`, 'application/wasm');
 
   await ffmpeg.load({
     coreURL,
