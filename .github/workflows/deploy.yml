@@ -32,7 +32,7 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm install
 
-           - name: FFmpeg-Dateien bereitstellen
+      - name: FFmpeg-Dateien bereitstellen
         run: |
           mkdir -p public/ffmpeg
           cp -r node_modules/@ffmpeg/core/dist/esm/. public/ffmpeg/
