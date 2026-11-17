@@ -1,1 +1,195 @@
+<!doctype html>
 
+<html lang="de">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#111019">
+
+  <meta name="description" content="Audio Studio – Videos kostenlos und einfach in MP3 umwandeln.">
+
+  <title>Audio Studio – Video zu MP3</title>
+
+</head>
+
+<body>
+
+  <div id="app">
+
+    <header class="topbar">
+
+      <a class="brand" href="./">
+
+        <span class="brand-icon">♫</span>
+
+        <span>Audio<span class="brand-accent">Studio</span></span>
+
+      </a>
+
+      <span class="free-label">100 % kostenlos</span>
+
+    </header>
+
+    <main class="main-content">
+
+      <section class="hero">
+
+        <div class="eyebrow">DEIN AUDIO-KONVERTER</div>
+
+        <h1>Dein Video.<br><span>Deine Musik.</span></h1>
+
+        <p class="subtitle">
+
+          Verwandle deine Videos ganz einfach in hochwertige MP3-Dateien.
+
+          Kostenlos, direkt im Browser und ohne Anmeldung.
+
+        </p>
+
+      </section>
+
+      <section class="converter-card">
+
+        <div class="mascot" aria-hidden="true">🦫</div>
+
+        <div class="upload-area" id="uploadArea">
+
+          <div class="upload-icon">↑</div>
+
+          <h2>Video hier ablegen</h2>
+
+          <p>oder wähle eine Datei von deinem Gerät aus</p>
+
+          <label class="choose-button" for="fileInput">Video auswählen</label>
+
+          <input id="fileInput" type="file"
+
+            accept="video/*,.mp4,.mov,.m4v" hidden>
+
+          <span class="file-hint">MP4 · MOV · M4V · Andere Videoformate</span>
+
+        </div>
+
+        <div class="selected-file hidden" id="selectedFile">
+
+          <div class="file-icon">▶</div>
+
+          <div class="file-details">
+
+            <strong id="fileName">video.mp4</strong>
+
+            <span id="fileSize">0 MB</span>
+
+          </div>
+
+          <button class="remove-button" id="removeFile" type="button"
+
+            aria-label="Datei entfernen">×</button>
+
+        </div>
+
+        <div class="settings">
+
+          <label for="quality">MP3-Qualität</label>
+
+          <select id="quality">
+
+            <option value="128">128 kbps – Kleinere Datei</option>
+
+            <option value="192" selected>192 kbps – Gute Qualität</option>
+
+            <option value="320">320 kbps – Höchste Qualität</option>
+
+          </select>
+
+        </div>
+
+        <button class="convert-button" id="convertButton" type="button" disabled>
+
+          <span id="buttonText">In MP3 umwandeln</span>
+
+          <span aria-hidden="true"> →</span>
+
+        </button>
+
+        <div class="progress-section hidden" id="progressSection">
+
+          <div class="progress-heading">
+
+            <span id="progressLabel">Konverter wird vorbereitet …</span>
+
+            <strong id="progressPercent">0 %</strong>
+
+          </div>
+
+          <div class="progress-track">
+
+            <div class="progress-bar" id="progressBar"></div>
+
+          </div>
+
+          <p class="progress-note" id="progressNote">
+
+            Bitte lasse diese Seite geöffnet.
+
+          </p>
+
+        </div>
+
+        <div class="result hidden" id="result">
+
+          <div class="success-icon">✓</div>
+
+          <div>
+
+            <strong>Fertig! Deine MP3 ist bereit.</strong>
+
+            <p id="resultInfo"></p>
+
+          </div>
+
+          <a id="downloadButton" class="download-button" download="audio.mp3">
+
+            MP3 herunterladen ↓
+
+          </a>
+
+        </div>
+
+        <div class="error-message hidden" id="errorMessage"></div>
+
+      </section>
+
+      <section class="features">
+
+        <div><span>🔒</span><strong>Privat</strong><p>Deine Dateien bleiben auf deinem Gerät.</p></div>
+
+        <div><span>⚡</span><strong>Einfach</strong><p>Keine Anmeldung und keine Installation.</p></div>
+
+        <div><span>🎵</span><strong>Gute Qualität</strong><p>Bis zu 320 kbps MP3.</p></div>
+
+      </section>
+
+      <p class="privacy-note">
+
+        Die Umwandlung findet direkt in deinem Browser statt.
+
+        Deine Videos werden nicht auf einen Server hochgeladen.
+
+      </p>
+
+    </main>
+
+    <footer>AudioStudio · Mit ❤️ und einem Capybara gemacht.</footer>
+
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+
+</body>
+
+</html>
