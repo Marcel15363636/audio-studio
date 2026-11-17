@@ -83,13 +83,19 @@ async function getFFmpeg(){
  ffmpeg.on('progress',({progress:p})=>progress(8+Math.round(p*88),'Audio wird extrahiert und als MP3 codiert …'));
  ffmpeg.on('log',({message})=>{if(message.includes('size=')||message.includes('time='))$('status').textContent='Audio wird verarbeitet …';});
  const base='https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd';
- const coreURL=await toBlobURL(base+'/ffmpeg-core.js','text/javascript');
- const wasmURL=await toBlobURL(base+'/ffmpeg-core.wasm','application/wasm');
- await ffmpeg.load({coreURL,wasmURL});
+ const workerBase='https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/esm';
+ $('status').textContent='Lade FFmpeg-Bibliothek …';
+ const [coreURL,wasmURL,classWorkerURL]=await Promise.all([
+  toBlobURL(base+'/ffmpeg-core.js','text/javascript'),
+  toBlobURL(base+'/ffmpeg-core.wasm','application/wasm'),
+  Promise.resolve(workerBase+'/worker.js')
+ ]);
+ $('status').textContent='Starte Audio-Engine …';
+ await ffmpeg.load({coreURL,wasmURL,classWorkerURL});
  return ffmpeg;
 }
 convert.onclick=async()=>{
- if(!file||busy)return;busy=true;convert.disabled=true;$('result').classList.remove('show');$('progressWrap').classList.add('show');$('progressTitle').textContent='Konverter startet …';progress(2,'Konverter wird geladen – beim ersten Mal kann das kurz dauern.');
+ if(!file||busy)return;busy=true;convert.disabled=true;$('result').classList.remove('show');$('progressWrap').classList.add('show');$('progressTitle').textContent='Konverter startet …';progress(2,'Lade Audio-Engine (ca. 30 MB) … Bitte Safari geöffnet lassen.');
  let inName='input'+(file.name.match(/\.[^.]+$/)?.[0]||'.mp4');
  try{
   const engine=await getFFmpeg();progress(8,'Video wird eingelesen …');
@@ -103,7 +109,7 @@ convert.onclick=async()=>{
   $('progressTitle').textContent='Konvertierung abgeschlossen';$('resultMeta').textContent=`${outputName} · ${size(output.size)} · ${q}`;
   $('result').classList.add('show');
  }catch(err){
-  $('progressTitle').textContent='Das hat leider nicht geklappt';$('status').textContent='Möglicherweise ist das Video zu groß oder enthält keine Tonspur. Bitte versuche es mit einer kleineren Datei erneut.';
+  $('progressTitle').textContent='Audio-Engine konnte nicht starten';$('status').textContent='Fehler beim Laden der Audio-Engine. Prüfe die Internetverbindung, lade die Seite neu und versuche es erneut. Technischer Hinweis: '+(err?.message||String(err));
   console.error(err);
  }finally{busy=false;convert.disabled=!file;}
 };
